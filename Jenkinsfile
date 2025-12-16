@@ -102,6 +102,10 @@ pipeline {
               )
             }
             failure{
+              xunit (
+                thresholds: [ skipped(failureThreshold: '25'), failed(failureThreshold: '5') ],
+                tools: [ JUnit(pattern: 'target/surefire-reports/*.xml') ]
+              )
               error "Test failure. Stopping pipeline execution!"
             }
             cleanup{
